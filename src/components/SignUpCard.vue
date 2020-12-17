@@ -2,8 +2,8 @@
   <q-card>
     <q-form
       ref="signUpForm"
-      @submit.prevent.stop="onSignUp"
-      @reset.prevent.stop="onReset"
+      @submit="onSignUp"
+      @reset="onReset"
     >
       <q-card-section class="column">
         <h5 class="q-ma-none self-center">
@@ -75,9 +75,9 @@ export default defineComponent({
   methods: {
     async onSignUp() {
       const el = this.$refs.signUpForm as QForm;
-      const isValidated = await el.validate();
+      const isValid = await el.validate();
 
-      if (isValidated) {
+      if (isValid) {
         this.$q.loading.show();
         try {
           await this.signUp({
