@@ -1,9 +1,12 @@
 import type fb from 'firebase';
 
-export interface User {
-  fullname: string;
+export interface AuthCredential {
   email: string;
   password: string;
+}
+
+export interface User extends AuthCredential {
+  fullname: string;
 }
 
 export interface WithTimestamp {
