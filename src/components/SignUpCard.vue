@@ -51,6 +51,7 @@ import { defineComponent } from '@vue/composition-api';
 import useAuth from 'composition/useAuth';
 import useFormValidation from 'composition/useFormValidation';
 import type { QForm } from 'quasar';
+import type { fbCommonError } from 'src/types';
 
 export default defineComponent({
   name: 'SignUpCard',
@@ -89,7 +90,7 @@ export default defineComponent({
         } catch (err) {
           this.$q.notify({
             type: 'negative',
-            message: err.message
+            message: (err as fbCommonError).message,
           });
         }
         this.$q.loading.hide();
@@ -101,7 +102,7 @@ export default defineComponent({
       this.email = '';
       this.password = '';
       this.passwordConfirm = '';
-    }
+    },
   },
 });
 </script>

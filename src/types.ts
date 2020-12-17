@@ -11,3 +11,8 @@ export interface WithTimestamp {
   _updated: fb.firestore.Timestamp,
   _deleted: fb.firestore.Timestamp,
 }
+
+export interface fbCommonError {
+  message: string;
+  code: string;
+}
