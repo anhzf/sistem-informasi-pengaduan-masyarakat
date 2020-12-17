@@ -12,10 +12,14 @@
         />
 
         <q-toolbar-title>
-          Quasar App
+          Sistem Informasi Pengaduan Masyarakat
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <q-btn
+          flat
+          label="Sign Out"
+          @click="signOut"
+        />
       </q-toolbar>
     </q-header>
 
@@ -95,15 +99,35 @@ const linksData = [
 ];
 
 import { defineComponent, ref } from '@vue/composition-api';
+import useAuth from 'composition/useAuth';
+import { fbCommonError } from 'src/types';
 
 export default defineComponent({
   name: 'MainLayout',
+
   components: { EssentialLink },
+
   setup() {
     const leftDrawerOpen = ref(false);
     const essentialLinks = ref(linksData);
 
-    return { leftDrawerOpen, essentialLinks };
+    return {
+      leftDrawerOpen,
+      essentialLinks,
+      ...useAuth(),
+    };
+  },
+
+  methods: {
+    onSignOut() {
+      this.$q.loading.show();
+      this.signOut()
+        .catch((err) => this.$q.notify({
+          type: 'negative',
+          message: (err as fbCommonError).message,
+        }))
+        .finally(() => this.$q.loading.hide());
+    },
   },
 });
 </script>
