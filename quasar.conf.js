@@ -9,6 +9,7 @@
 /* eslint func-names: 0 */
 /* eslint global-require: 0 */
 /* eslint-disable @typescript-eslint/no-var-requires */
+const { resolve } = require('path');
 const { configure } = require('quasar/wrappers');
 
 module.exports = configure((ctx) => ({
@@ -79,6 +80,12 @@ module.exports = configure((ctx) => ({
           exclude: /node_modules/,
         });
       }
+
+      cfg.resolve.alias = {
+        ...cfg.resolve.alias,
+
+        composition: resolve(__dirname, './src/composition'),
+      };
     },
   },
 
@@ -93,7 +100,11 @@ module.exports = configure((ctx) => ({
   framework: {
     iconSet: 'material-icons', // Quasar icon set
     lang: 'en-us', // Quasar language pack
-    config: {},
+    config: {
+      ripple: {
+        early: true,
+      },
+    },
 
     // Possible values for "importStrategy":
     // * 'auto' - (DEFAULT) Auto-import needed Quasar components & directives
