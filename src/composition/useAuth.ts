@@ -2,12 +2,13 @@ import { fbs, refs } from 'src/firebaseServices';
 import { User } from 'src/types';
 
 export default function useAuth() {
-  const signUp = async (user: User) => {
-    const userCreated = await fbs.auth.createUserWithEmailAndPassword(user.email, user.password);
+  const signUp = async ({ email, password, fullname }: User) => {
+    const userCreated = await fbs.auth.createUserWithEmailAndPassword(email, password);
     const userDoc = refs.User.doc(userCreated.user?.uid);
 
     await userDoc.set({
-      ...user,
+      email,
+      fullname,
       ...fbs.utils.withTimeStamp,
     });
   };
