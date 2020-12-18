@@ -5,11 +5,12 @@ import { Complaint, WithTimestamp } from 'src/types';
 import type fb from 'firebase';
 import { currentUser } from 'composition/useAuth';
 
-export interface FetchedComplaint extends Complaint, WithTimestamp {
-  user: fb.firestore.DocumentReference
+export interface ComplaintToObject extends Complaint, WithTimestamp {
+  uid: string;
+  user: fb.firestore.DocumentReference,
 }
 
-const complaintRepository = ref<FetchedComplaint[] | null>(null);
+const complaintRepository = ref<ComplaintToObject[] | null>(null);
 
 const state = ref({
   loading: false,
@@ -44,7 +45,10 @@ const getComplaintRepository = async () => {
     const querySnapshot = await refs.Complaint.where('user', '==', refs.User.doc(user.uid)).get();
 
     state.value.loading = false;
-    return querySnapshot.docs.map((doc) => doc.data()) as FetchedComplaint[];
+    return querySnapshot.docs.map((doc) => ({
+      uid: doc.id,
+      ...doc.data(),
+    })) as ComplaintToObject[];
   }
 
   throw new Error('Unauthenticated!');

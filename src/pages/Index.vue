@@ -9,30 +9,52 @@
       row-key="title"
       card-class="full-width"
       :loading="state.loading"
-    />
+    >
+      <template #header="props">
+        <q-tr :props="props">
+          <q-th
+            v-for="col in props.cols"
+            :key="col.name"
+            :props="props"
+          >
+            {{ col.label }}
+          </q-th>
+          <q-th auto-width>
+            Actions
+          </q-th>
+        </q-tr>
+      </template>
+
+      <template #body="props">
+        <q-tr :props="props">
+          <q-td
+            v-for="col in props.cols"
+            :key="col.name"
+            :props="props"
+          >
+            {{ col.value }}
+          </q-td>
+          <q-td auto-width>
+            <q-btn
+              label="see details"
+              color="primary"
+              flat
+              @click="showDetail(props)"
+            />
+          </q-td>
+        </q-tr>
+      </template>
+    </q-table>
   </q-page>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
+import ComplaintDetailDialog from 'components/ComplaintDetailDialog.vue';
 import useAuthGuard from 'composition/useAuthGuard';
-import useComplaint, { FetchedComplaint } from 'composition/useComplaint';
+import useComplaint, { ComplaintToObject } from 'composition/useComplaint';
 import type fb from 'firebase';
-
-interface Column<T> {
-  name: string
-  label: string
-  field: string | ((row: T) => unknown)
-  required?: boolean
-  align?: 'left' | 'center' | 'right'
-  sortable?: boolean
-  sort?: () => unknown
-  format?: (v: unknown) => string
-  style?: string
-  classes?: string
-  headerStyle?: string
-  headerClasses?: string
-}
+import type { q } from 'src/types';
 
 export default defineComponent({
   name: 'PageIndex',
@@ -65,13 +87,23 @@ export default defineComponent({
           format: (v) => (v as fb.firestore.Timestamp).toDate().toLocaleString(),
           sortable: true,
         },
-      ] as Column<FetchedComplaint>[],
+      ] as q.Table.Column<ComplaintToObject>[],
     };
   },
 
   computed: {
     complaints() {
       return this.complaintRepository ?? [];
+    },
+  },
+
+  methods: {
+    showDetail(data: q.Table.BodyProps) {
+      this.$q.dialog({
+        component: ComplaintDetailDialog,
+        parent: this,
+        data: data.row,
+      });
     },
   },
 });
