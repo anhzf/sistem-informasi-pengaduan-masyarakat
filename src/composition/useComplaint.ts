@@ -5,9 +5,10 @@ import { Complaint } from 'src/types';
 const addComplaint = async ({ attachments, ...data }: Complaint) => {
   const complaintDoc = await refs.Complaint.add(data);
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const storageRef = refs.storage.Attachment(fbs.auth.currentUser!.uid);
+  const userStorageRef = refs.storage.Attachment(fbs.auth.currentUser!.uid);
+  const storageRef = userStorageRef.child(complaintDoc.id);
   const uploadTasks = attachments
-    .map((attachment) => storageRef.child(`${complaintDoc.id}/${attachment.name}`).put(attachment));
+    .map((attachment) => storageRef.child(attachment.name).put(attachment));
 
   await Promise.all(uploadTasks);
 };
