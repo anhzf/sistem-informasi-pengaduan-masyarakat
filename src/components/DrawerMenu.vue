@@ -25,7 +25,6 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
-import { Location } from 'vue-router';
 
 export default defineComponent({
   name: 'DrawerMenu',
@@ -41,7 +40,7 @@ export default defineComponent({
     },
 
     to: {
-      type: Location,
+      type: [Object, String],
       default: '#',
     },
 

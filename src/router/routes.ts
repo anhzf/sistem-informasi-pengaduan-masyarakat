@@ -8,7 +8,13 @@ const routes: RouteConfig[] = [
       {
         name: 'Dashboard',
         path: '',
+        alias: 'complaints',
         component: () => import('pages/Index.vue'),
+      },
+      {
+        name: 'AddComplaint',
+        path: 'add-complaint',
+        component: () => import('pages/AddComplaint.vue'),
       },
       {
         name: 'Auth',

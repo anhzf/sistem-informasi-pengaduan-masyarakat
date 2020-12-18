@@ -45,11 +45,12 @@
         <drawer-menu
           title="Daftar Ajuan"
           icon="list"
-          :to="{name: 'Dashboard'}"
+          to="complaints"
         />
         <drawer-menu
           title="Tambah Ajuan"
           icon="add"
+          :to="{name: 'AddComplaint'}"
         />
       </q-list>
     </q-drawer>
