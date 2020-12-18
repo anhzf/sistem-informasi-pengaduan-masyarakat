@@ -40,12 +40,16 @@
           header
           class="text-grey-8"
         >
-          Essential Links
+          Menu
         </q-item-label>
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
+        <drawer-menu
+          title="Daftar Ajuan"
+          icon="list"
+          :to="{name: 'Dashboard'}"
+        />
+        <drawer-menu
+          title="Tambah Ajuan"
+          icon="add"
         />
       </q-list>
     </q-drawer>
@@ -57,53 +61,7 @@
 </template>
 
 <script lang="ts">
-import EssentialLink from 'components/EssentialLink.vue';
-
-const linksData = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev',
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework',
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev',
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev',
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev',
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev',
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev',
-  },
-];
-
+import DrawerMenu from 'components/DrawerMenu.vue';
 import { defineComponent, ref } from '@vue/composition-api';
 import useAuth from 'composition/useAuth';
 import { fbCommonError } from 'src/types';
@@ -111,18 +69,16 @@ import { fbCommonError } from 'src/types';
 export default defineComponent({
   name: 'MainLayout',
 
-  components: { EssentialLink },
+  components: { DrawerMenu },
 
   setup() {
     const leftDrawerOpen = ref(false);
-    const essentialLinks = ref(linksData);
     const { currentUser, signOut } = useAuth();
 
     return {
       currentUser,
       signOut,
       leftDrawerOpen,
-      essentialLinks,
     };
   },
 

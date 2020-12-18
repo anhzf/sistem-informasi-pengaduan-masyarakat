@@ -2,8 +2,7 @@
   <q-item
     clickable
     tag="a"
-    target="_blank"
-    :href="link"
+    :to="to"
   >
     <q-item-section
       v-if="icon"
@@ -14,7 +13,10 @@
 
     <q-item-section>
       <q-item-label>{{ title }}</q-item-label>
-      <q-item-label caption>
+      <q-item-label
+        v-if="caption"
+        caption
+      >
         {{ caption }}
       </q-item-label>
     </q-item-section>
@@ -23,9 +25,10 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
+import { Location } from 'vue-router';
 
 export default defineComponent({
-  name: 'EssentialLink',
+  name: 'DrawerMenu',
   props: {
     title: {
       type: String,
@@ -37,8 +40,8 @@ export default defineComponent({
       default: '',
     },
 
-    link: {
-      type: String,
+    to: {
+      type: Location,
       default: '#',
     },
 
