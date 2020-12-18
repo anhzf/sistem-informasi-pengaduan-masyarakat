@@ -74,27 +74,22 @@ export default defineComponent({
 
   methods: {
     async onSignUp() {
-      const el = this.$refs.signUpForm as QForm;
-      const isValid = await el.validate();
+      this.$q.loading.show();
+      try {
+        await this.signUp({
+          fullname: this.fullname,
+          email: this.email,
+          password: this.password,
+        });
 
-      if (isValid) {
-        this.$q.loading.show();
-        try {
-          await this.signUp({
-            fullname: this.fullname,
-            email: this.email,
-            password: this.password,
-          });
-
-          el.reset();
-        } catch (err) {
-          this.$q.notify({
-            type: 'negative',
-            message: (err as fbCommonError).message,
-          });
-        }
-        this.$q.loading.hide();
+        (this.$refs.signUpForm as QForm).reset();
+      } catch (err) {
+        this.$q.notify({
+          type: 'negative',
+          message: (err as fbCommonError).message,
+        });
       }
+      this.$q.loading.hide();
     },
 
     onReset() {
