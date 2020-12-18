@@ -5,7 +5,9 @@ import type { AuthCredential, User } from 'src/types';
 
 const userConverter = (user: fb.User) => ({
   email: user.email,
-} as Omit<User, 'password'>);
+  uid: user.uid,
+  fullname: '',
+} as (Omit<User, 'password'> & {uid: string}));
 
 export const currentUser = ref(fbs.auth.currentUser && userConverter(fbs.auth.currentUser));
 

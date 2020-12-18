@@ -43,12 +43,12 @@
           Menu
         </q-item-label>
         <drawer-menu
-          title="Daftar Ajuan"
+          title="Daftar Aduan"
           icon="list"
           to="complaints"
         />
         <drawer-menu
-          title="Tambah Ajuan"
+          title="Tambah Aduan"
           icon="add"
           :to="{name: 'AddComplaint'}"
         />
