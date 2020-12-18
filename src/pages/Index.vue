@@ -8,6 +8,7 @@
       :data="complaints"
       row-key="title"
       card-class="full-width"
+      :loading="state.loading"
     />
   </q-page>
 </template>
@@ -38,10 +39,11 @@ export default defineComponent({
 
   setup() {
     useAuthGuard();
-    const { complaintRepository } = useComplaint();
+    const { complaintRepository, state } = useComplaint();
 
     return {
       complaintRepository,
+      state,
     };
   },
 

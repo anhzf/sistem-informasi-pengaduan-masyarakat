@@ -11,6 +11,10 @@ export interface FetchedComplaint extends Complaint, WithTimestamp {
 
 const complaintRepository = ref<FetchedComplaint[] | null>(null);
 
+const state = ref({
+  loading: false,
+});
+
 const addComplaint = async ({ attachments, ...data }: Complaint) => {
   const user = currentUser.value;
 
@@ -36,8 +40,10 @@ const getComplaintRepository = async () => {
   const user = currentUser.value;
 
   if (user) {
+    state.value.loading = true;
     const querySnapshot = await refs.Complaint.where('user', '==', refs.User.doc(user.uid)).get();
 
+    state.value.loading = false;
     return querySnapshot.docs.map((doc) => doc.data()) as FetchedComplaint[];
   }
 
@@ -54,10 +60,12 @@ export default function useComplaint() {
         complaintRepository.value = await getComplaintRepository();
       }
     },
+    { immediate: true },
   );
 
   return {
     complaintRepository,
+    state,
     addComplaint,
     getComplaintRepository,
   };

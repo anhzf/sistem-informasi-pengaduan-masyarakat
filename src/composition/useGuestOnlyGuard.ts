@@ -1,6 +1,6 @@
 import { watch } from '@vue/composition-api';
 import { currentUser } from 'composition/useAuth';
-import { LoadingBar } from 'quasar';
+import { Loading } from 'quasar';
 import { Router } from 'src/router';
 
 export default function useGuestOnlyGuard() {
@@ -8,10 +8,11 @@ export default function useGuestOnlyGuard() {
     currentUser,
     () => {
       if (currentUser.value) {
-        LoadingBar.start();
+        Loading.show();
         Router.push({ ...Router.currentRoute, name: 'Dashboard' })
-          .finally(() => LoadingBar.stop());
+          .finally(() => Loading.hide());
       }
     },
+    { immediate: true },
   );
 }
