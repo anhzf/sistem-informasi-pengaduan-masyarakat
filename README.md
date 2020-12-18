@@ -2,6 +2,9 @@
 
 Sistem Informasi Pengaduan Masyarakat
 
+## Demo
+https://oprec-upt-tik.web.app/complaints
+
 ## Requirements
 - NPM (included when installing [node.js](https://nodejs.org/))
 - Quasar CLI (https://quasar.dev/quasar-cli/installation)
