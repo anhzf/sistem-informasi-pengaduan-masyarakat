@@ -5,7 +5,16 @@ const routes: RouteConfig[] = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Index.vue') },
+      {
+        name: 'Dashboard',
+        path: '',
+        component: () => import('pages/Index.vue'),
+      },
+      {
+        name: 'Auth',
+        path: 'auth',
+        component: () => import('pages/Auth.vue'),
+      },
     ],
   },
 

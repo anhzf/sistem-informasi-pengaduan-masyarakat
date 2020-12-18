@@ -15,11 +15,17 @@
           Sistem Informasi Pengaduan Masyarakat
         </q-toolbar-title>
 
-        <q-btn
-          flat
-          label="Sign Out"
-          @click="signOut"
-        />
+        <div
+          v-if="currentUser"
+          class="row items-center q-gutter-x-sm"
+        >
+          <span style="text-decoration: underline">{{ currentUser.email }}</span>
+          <q-btn
+            label="Sign Out"
+            flat
+            @click="signOut"
+          />
+        </div>
       </q-toolbar>
     </q-header>
 
@@ -110,11 +116,13 @@ export default defineComponent({
   setup() {
     const leftDrawerOpen = ref(false);
     const essentialLinks = ref(linksData);
+    const { currentUser, signOut } = useAuth();
 
     return {
+      currentUser,
+      signOut,
       leftDrawerOpen,
       essentialLinks,
-      ...useAuth(),
     };
   },
 

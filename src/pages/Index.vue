@@ -1,24 +1,21 @@
 <template>
   <q-page
-    class="row items-start justify-evenly q-gutter-y-lg"
+    class="row items-start"
     padding
   >
-    <sign-in-card class="col-12 col-md-3" />
-    <sign-up-card class="col-12 col-md-3" />
+    <h1>Dashboard</h1>
   </q-page>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
-import SignInCard from 'components/SignInCard.vue';
-import SignUpCard from 'components/SignUpCard.vue';
+import useAuthGuard from 'composition/useAuthGuard';
 
 export default defineComponent({
   name: 'PageIndex',
 
-  components: {
-    SignInCard,
-    SignUpCard,
+  setup() {
+    useAuthGuard();
   },
 });
 </script>

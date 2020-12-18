@@ -104,6 +104,11 @@ module.exports = configure((ctx) => ({
       ripple: {
         early: true,
       },
+      loadingBar: {
+        color: 'info',
+        size: '10px',
+        position: 'bottom',
+      },
     },
 
     // Possible values for "importStrategy":
@@ -120,7 +125,7 @@ module.exports = configure((ctx) => ({
 
     // Quasar plugins
     plugins: [
-      'Notify', 'Loading',
+      'Notify', 'Loading', 'LoadingBar',
     ],
   },
 
