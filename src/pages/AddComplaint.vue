@@ -97,6 +97,7 @@ export default defineComponent({
           message: 'Aduan telah ditambahkan!',
         });
       } catch (err) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         if (err.message) {
           Notify.create({
             type: 'negative',

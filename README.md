@@ -2,10 +2,18 @@
 
 Sistem Informasi Pengaduan Masyarakat
 
+## Requirements
+- NPM (included when installing [node.js](https://nodejs.org/))
+- Quasar CLI (https://quasar.dev/quasar-cli/installation)
+- Firebase project
+
 ## Install the dependencies
 ```bash
 npm install
 ```
+
+## Place your Firebase configuration
+Copy `src/firebase.example.ts` to `src/firebase.ts` then paste your firebase configuration into `firebaseConfig` constants!
 
 ### Start the app in development mode (hot-code reloading, error reporting, etc.)
 ```bash
